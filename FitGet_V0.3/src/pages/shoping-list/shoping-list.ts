@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ShoppingListService } from '../services/shoping-list';
 
-/**
- * Generated class for the ShopingListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -17,10 +12,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ShopingListPage {
 
   shopingForm:FormGroup;
+  ingrediantList;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    
+    private serviceList:ShoppingListService
   ){
     this.shopingForm=this.fb.group({
       name:['',Validators.required],
@@ -28,12 +26,19 @@ export class ShopingListPage {
     })
   }
 
+  ionViewWillEnter(){
+    this.ingrediantList=this.serviceList.getItem()
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShopingListPage');
   }
 
   submitForm(){
-    console.log(this.shopingForm.value)
+    this.serviceList.addItem(this.shopingForm.value.name,this.shopingForm.value.amount)
+    
   }
 
+  deleteItem(index){
+    this.serviceList.removeItem(index);
+  }
 }

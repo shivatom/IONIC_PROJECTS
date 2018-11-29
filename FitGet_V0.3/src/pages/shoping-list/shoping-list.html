@@ -30,4 +30,6 @@
     <button ion-button block type="submit" (click)="submitForm()" [disabled]='!shopingForm.valid'>Add Item</button>
   </form>
 
+  <ion-item *ngFor="let item of ingrediantList; let i=index;" (click)="deleteItem(i)" >{{item.name}}({{item.amount}})</ion-item>
+
 </ion-content>

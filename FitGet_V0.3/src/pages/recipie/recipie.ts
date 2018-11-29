@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { EditRecipiePage } from '../edit-recipie/edit-recipie';
 
 /**
  * Generated class for the RecipiePage page.
@@ -20,6 +21,10 @@ export class RecipiePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RecipiePage');
+  }
+
+  newRecipie(){
+    this.navCtrl.push(EditRecipiePage,{mode:'Add'});
   }
 
 }

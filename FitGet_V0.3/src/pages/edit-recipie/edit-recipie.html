@@ -7,12 +7,33 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>edit-recipie</ion-title>
+    <ion-title>{{mode}} Recipie</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  {{recipeForm.value | json}}
+  <form [formGroup]="recipeForm">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Title</ion-label>
+        <ion-input type="text" formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-textarea formControlName="description" ></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Dificulty</ion-label>
+        <ion-select formControlName="dificulty">
+            <ion-option value="easy">Easy</ion-option>
+            <ion-option value="n64">Medium</ion-option>
+            <ion-option value="ps">Hard</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <button type="submit" ion-button block>{{mode}} Recipie</button>
+  </form>
 </ion-content>
