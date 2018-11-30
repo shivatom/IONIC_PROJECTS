@@ -14,7 +14,6 @@
 
 
 <ion-content padding>
-  {{recipeForm.value | json}}
   <form [formGroup]="recipeForm">
     <ion-list>
       <ion-item>
@@ -34,6 +33,14 @@
         </ion-select>
       </ion-item>
     </ion-list>
-    <button type="submit" ion-button block>{{mode}} Recipie</button>
+
+    <ion-list>
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input  type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button type="button" ion-button clear block (click)="onManageIngrediant()">Manage Ingredients</button>
+    <button type="submit" ion-button block (click)="updateRecipe()" [disabled]="!recipeForm.valid">{{mode}} Recipie</button>
   </form>
 </ion-content>
