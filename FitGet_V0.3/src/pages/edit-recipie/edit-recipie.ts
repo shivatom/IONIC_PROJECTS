@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 
 /**
  * Generated class for the EditRecipiePage page.
@@ -27,7 +27,8 @@ export class EditRecipiePage {
     this.recipeForm=this.fb.group({
       title:['',Validators.required],
       description:['',Validators.required],
-      dificulty:['',Validators.required]
+      dificulty:['',Validators.required],
+      ingredients:this.fb.array([])
     })
   }
 
@@ -38,7 +39,7 @@ export class EditRecipiePage {
 
   }
   private  createNewIngredientAlert(){
-    const newIngredientAlert= this.alertControl.create({
+    return this.alertControl.create({
       title:'Add Ingredient',
       inputs:[{
         name:'name',
@@ -49,10 +50,11 @@ export class EditRecipiePage {
         role:'cancel'
       },{
         text:'Add',
-        handler:date=>{
-          if(date.name.trim()=='' || date.name==null){
-
+        handler:data=>{
+          if(data.name.trim()=='' || data.name==null){
+            return;
           }
+          (<FormArray>this.recipeForm.get('ingredients')).push(new FormControl(data.name,Validators.required));
         }
       }]
     })
@@ -64,7 +66,7 @@ export class EditRecipiePage {
         {
           text: 'Add Ingredient',
           handler: () => {
-           
+            this.createNewIngredientAlert().present();
           }
         },{
           text: 'Remove All Ingredient',
